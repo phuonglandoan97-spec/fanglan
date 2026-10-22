@@ -43,6 +43,7 @@
     .schedule-row{border-color:#eee6d2}
     .toast{background:#315f59}
     .nav button.active{color:var(--green)}.primary:hover{background:color-mix(in srgb,var(--green),#000 12%)}.stage.done b,.tag.green,.move-btn,.agent-status{color:var(--green)}.bar.highlight,.day.today,.switch input:checked+span{background:var(--green)}
+    .advisor-card{margin-bottom:16px;padding:20px}.advisor-form{display:grid;gap:12px}.advisor-form label{font-size:11px;font-weight:800;color:#62614f}.advisor-form textarea{width:100%;min-height:112px;resize:vertical;border:1px solid var(--line);border-radius:13px;padding:12px;background:#fffef9;color:var(--ink);font:inherit;font-size:12px;line-height:1.6;outline:none}.advisor-form textarea:focus{border-color:#9ebeb1;box-shadow:0 0 0 3px #397c7512}.advisor-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.advisor-note,.advisor-status{font-size:10px;color:var(--muted)}.advisor-result{display:none;margin-top:16px;padding:16px;border:1px solid #dce9df;border-radius:14px;background:#f7fbf5;white-space:pre-wrap;font-size:12px;line-height:1.75;color:var(--ink)}.advisor-result.visible{display:block}.advisor-result.error{border-color:#f0d5c8;background:#fff8f4;color:#87513a}.advisor-result:empty{display:none}.advisor-form button:disabled{opacity:.65;cursor:wait}
     .user-hidden{display:none!important}
     .settings-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:16px;align-items:start}
     .settings-card{padding:21px}
@@ -131,7 +132,8 @@
       </div>
     </section>
     <section class="page" id="page-production"><div class="page-head"><div><div class="eyebrow">Vận hành · Sản xuất</div><h1>Dây chuyền nội dung</h1><p>Mỗi video đi qua các bước có người phụ trách và điểm duyệt rõ ràng.</p></div><button class="primary" onclick="openModal()">＋ Thêm video</button></div><div class="card wide-panel"><div class="toolbar"><input class="search" id="task-search" placeholder="⌕  Tìm video hoặc chủ đề..." oninput="renderBoard()"><div class="filters"><button class="secondary" onclick="toast('Bộ lọc tuyến nội dung sẵn sàng thêm')">Tất cả tuyến⌄</button><button class="secondary" onclick="toast('Đang hiển thị công việc của toàn đội')">Toàn đội⌄</button></div></div><div class="board" id="board"></div></div></section>
-    <section class="page" id="page-team"><div class="page-head"><div><div class="eyebrow">Nhân sự · Trợ lý AI</div><h1>Đội ngũ AI</h1><p>Mỗi nhân sự có một phạm vi công việc và đầu ra cụ thể.</p></div><button class="primary" onclick="toast('Bạn có thể thêm nhân sự AI khi quy trình đầu tiên đã ổn định.')">＋ Thêm nhân sự</button></div><div class="grid agent-grid" id="agent-grid"></div></section>
+    <section class="page" id="page-team"><div class="page-head"><div><div class="eyebrow">Nhân sự · Trợ lý AI</div><h1>Đội ngũ AI</h1><p>Mỗi nhân sự có một phạm vi công việc và đầu ra cụ thể.</p></div><button class="primary" onclick="toast('Bạn có thể thêm nhân sự AI khi quy trình đầu tiên đã ổn định.')">＋ Thêm nhân sự</button></div><article class="card advisor-card"><div class="panel-head"><div><div class="panel-title">💡 Hỏi AI Cố vấn nội dung</div><div class="panel-sub">Nhập ý tưởng hoặc chủ đề để nhận góc khai thác phù hợp với kênh Fanglan.</div></div></div><form class="advisor-form" id="advisor-form"><label for="advisor-topic">Chủ đề hoặc ý tưởng video</label><textarea id="advisor-topic" name="topic" maxlength="1200" required placeholder="Ví dụ: Những câu tiếng Trung cần biết khi hỏi xưởng về số lượng đặt tối thiểu"></textarea><div class="advisor-actions"><button class="primary" id="advisor-submit" type="submit">Nhận tư vấn từ AI</button><span class="advisor-note">AI đề xuất ý tưởng; Lana duyệt và kiểm chứng trước khi sản xuất.</span></div><div class="advisor-status" id="advisor-status" role="status" aria-live="polite"></div></form><div class="advisor-result" id="advisor-result" aria-live="polite"></div></article>
+    <div class="grid agent-grid" id="agent-grid"></div></section>
     <section class="page" id="page-schedule"><div class="page-head"><div><div class="eyebrow">Xuất bản · Lịch nội dung</div><h1>Lịch đăng</h1><p>Chỉ lên lịch cho video đã qua bước duyệt cuối của chủ công ty.</p></div><button class="primary" onclick="toast('Lịch đăng mẫu đã được cập nhật')">＋ Lên lịch đăng</button></div><div class="card wide-panel"><div class="panel-head"><div><div class="panel-title">Nội dung sắp xuất bản</div><div class="panel-sub">Lịch đề xuất · Tháng 10, 2026</div></div><button class="secondary">Tuần này⌄</button></div><div class="schedule-list" id="schedule-list"></div></div></section>
     <section class="page" id="page-analytics"><div class="page-head"><div><div class="eyebrow">Đo lường · Học hỏi</div><h1>Kết quả công ty</h1><p>Theo dõi cả sức khỏe nội dung lẫn kết quả kinh doanh.</p></div><button class="secondary" onclick="toast('Báo cáo tháng đã sẵn sàng để cập nhật dữ liệu')">Tháng này⌄</button></div><div class="grid metric-grid"><div class="card metric"><span>Video đã đăng</span><b>12</b><span>10 tiếng Trung · 2 du học</span></div><div class="card metric"><span>Lượt xem trung bình</span><b>4.05k</b><span>↑ 8% so với tháng trước</span></div><div class="card metric"><span>Khách hỏi sản phẩm/dịch vụ</span><b>37</b><span>24 từ điển · 13 tư vấn du học</span></div></div><div class="grid bottom-grid" style="margin-top:16px"><section class="card panel"><div class="panel-head"><div><div class="panel-title">Nội dung nổi bật</div><div class="panel-sub">Theo lượt xem và tương tác</div></div></div><div class="task-list"><div class="task"><span class="tag green">Nhập hàng</span><div class="task-main"><div class="task-title">5 câu hỏi cần hỏi xưởng trước khi đặt mẫu</div><div class="task-meta">TikTok · Đăng 18/10</div></div><b style="font-size:11px">8.2k</b></div><div class="task"><span class="tag purple">Du học</span><div class="task-main"><div class="task-title">Một ngày học ngành TMĐT ở Trung Quốc</div><div class="task-meta">TikTok · Đăng 14/10</div></div><b style="font-size:11px">6.7k</b></div><div class="task"><span class="tag orange">Kho xưởng</span><div class="task-main"><div class="task-title">Phân biệt 起订量 và 最小起订量</div><div class="task-meta">TikTok · Đăng 11/10</div></div><b style="font-size:11px">5.1k</b></div></div></section><section class="card panel"><div class="panel-head"><div><div class="panel-title">Ghi chú điều hành</div><div class="panel-sub">Điều chỉnh cho tuần tới</div></div></div><div style="font-size:11px;line-height:1.8;color:#737a70"><p>↗ Video tình huống nhập hàng có nhiều lượt lưu hơn video chỉ liệt kê từ vựng.</p><p>↗ Nội dung du học được hỏi nhiều khi có trải nghiệm thực tế và thông tin nguồn rõ ràng.</p><p>→ Thử làm thêm 2 video hội thoại với xưởng trong tuần tới.</p></div></section></div></section>
     <section class="page" id="page-playbook"><div class="page-head"><div><div class="eyebrow">Nền tảng · Quy tắc vận hành</div><h1>Sổ tay công ty</h1><p>Bộ nhớ chung giúp đội ngũ AI làm việc đúng định hướng.</p></div><button class="secondary" onclick="toast('Sổ tay đã lưu trên trình duyệt này')">✓ Đã lưu</button></div><div class="playbook"><article class="card"><h3>✳ Sứ mệnh</h3><p>Giúp người Việt ứng dụng tiếng Trung vào công việc thương mại điện tử và tìm hiểu con đường học tập phù hợp tại Trung Quốc.</p></article><article class="card"><h3>◎ Hai nhóm khán giả</h3><ul><li>Người muốn giao tiếp với kho xưởng, nhà cung cấp và nhập hàng.</li><li>Người tìm hiểu du học Trung Quốc ngành thương mại điện tử.</li></ul></article><article class="card"><h3>▤ Tuyến nội dung</h3><ul><li>Tiếng Trung kho xưởng</li><li>Tiếng Trung nhập hàng</li><li>Du học ngành thương mại điện tử</li><li>Công cụ và lộ trình học</li></ul></article><article class="card"><h3>✓ Nguyên tắc duyệt</h3><ul><li>Kiểm tra chữ Hán, pinyin và nghĩa trước khi quay.</li><li>Thông tin tuyển sinh, chi phí, chính sách phải có nguồn và ngày xác minh.</li><li>Không tự bịa trải nghiệm, số liệu hoặc cam kết kết quả.</li><li>Chủ công ty duyệt kịch bản và video trước khi đăng.</li></ul></article></div></section>
@@ -167,7 +169,38 @@
   function saveSettings(){const val=id=>document.querySelector(id).value.trim();const prior=readSettings();const s={company:val('#set-company')||prior.company,tagline:val('#set-tagline')||prior.tagline,workspace:val('#set-workspace')||prior.workspace,owner:val('#set-owner')||prior.owner,accent:val('#set-accent'),highlight:val('#set-highlight'),background:val('#set-background'),team:document.querySelector('#show-team').checked,calendar:document.querySelector('#show-calendar').checked,chart:document.querySelector('#show-chart').checked};localStorage.setItem('moc_settings',JSON.stringify(s));applySettings(s);toast('Đã lưu tùy chỉnh văn phòng')}
   function resetSettings(){localStorage.removeItem('moc_settings');loadSettingsForm();applySettings(defaultSettings);toast('Đã khôi phục giao diện mặc định')}
   if(!localStorage.getItem('moc_identity_fanglan_v1')){const old=JSON.parse(localStorage.getItem('moc_settings')||'null');if(old){old.company='Fanglan';old.owner='Lana';localStorage.setItem('moc_settings',JSON.stringify(old))}localStorage.setItem('moc_identity_fanglan_v1','1')}
+  const advisorForm=document.querySelector('#advisor-form');
+  advisorForm?.addEventListener('submit',async(event)=>{
+    event.preventDefault();
+    const input=document.querySelector('#advisor-topic');
+    const button=document.querySelector('#advisor-submit');
+    const status=document.querySelector('#advisor-status');
+    const result=document.querySelector('#advisor-result');
+    const topic=input.value.trim();
+    if(!topic){input.focus();return}
+    button.disabled=true;
+    button.textContent='Đang suy nghĩ…';
+    status.textContent='Đang gửi chủ đề đến AI Cố vấn.';
+    result.textContent='';
+    result.classList.remove('visible','error');
+    try{
+      const response=await fetch('/api/advisor',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic})});
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok) throw new Error(data.error||`Yêu cầu thất bại (${response.status}).`);
+      result.textContent=data.idea||'AI chưa trả về nội dung. Hãy thử lại.';
+      result.classList.add('visible');
+      status.textContent='Đã nhận gợi ý. Lana hãy chọn và kiểm chứng trước khi quay.';
+    }catch(error){
+      result.textContent=error.message||'Không kết nối được AI. Hãy thử lại sau.';
+      result.classList.add('visible','error');
+      status.textContent='Chưa nhận được tư vấn.';
+    }finally{
+      button.disabled=false;
+      button.textContent='Nhận tư vấn từ AI';
+    }
+  });
   document.querySelector('#today').textContent=new Intl.DateTimeFormat('vi-VN',{weekday:'short',day:'numeric',month:'short'}).format(new Date());renderCalendar();renderChart();renderAll();loadSettingsForm();applySettings(readSettings());
 </script>
 </body>
 </html>
+
